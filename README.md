@@ -31,8 +31,7 @@ Additionally, if there are cases where you want to use this manually, you should
 
 There are a couple of assumptions that this GitHub Actions makes.
 
-1. The only releases that you want to use for this action, to close issues based on, are official releases.
-1. The most recent release that you published is the release that fixes all issues marked as fixed upon a new release.
+1. The most recent release that you published (pre-release or official) is the release that fixes all issues marked as fixed upon a new release.
     1. This assumption is not made when `isExternalRelease` is `"true"`.
 
 ## Inputs
