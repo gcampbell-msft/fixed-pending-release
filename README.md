@@ -24,6 +24,7 @@ jobs:
 ```
 
 Note that this action is triggered by the `release.published` event, which occurs when a new release is published in your repository.
+Additionally, if there are cases where you want to use this manually, you should `workflow_dispatch` and you should likely set `isExternalLaunch` to `"true"`.
 
 ## Assumptions
 

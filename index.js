@@ -30,10 +30,16 @@ async function run() {
         
         let message = "";
         const messageTemplate = providedMessage || externalReleaseDefault;
+        const isExternalReleaseInput = core.getInput("isExternalRelease", { required: false });
+        const isExternalRelease = isExternalReleaseInput === "false" ? false : isExternalReleaseInput === "true" ? true : undefined;
+
+        if (isExternalRelease === undefined) {
+            throw new Error("Invalid input for `isExternalRelease`");
+        }
 
         // if it isn't an external release, we should have access to the release and we can 
         // template with the most recent release.
-        if (core.getInput("isExternalRelease", { required: false }) === "false") {
+        if (!isExternalRelease) {
             // TODO: Possibly modify to strictly consider official releases.
             const { data: releases } = await octokit.rest.repos.listReleases({ owner, repo });
             const release = releases.length > 0 ? releases[0] : undefined;
