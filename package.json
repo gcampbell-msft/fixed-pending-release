@@ -1,6 +1,6 @@
 {
   "name": "close-issues-on-release",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Upon release, close issues marked 'fixed-pending-release'",
   "main": "index.js",
   "scripts": {
