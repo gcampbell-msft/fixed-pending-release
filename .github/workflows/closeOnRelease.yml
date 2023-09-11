@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Close issues marked 'fixed-pending-release' upon a release.
-        uses: gcampbell-msft/fixed-pending-release@0.0.3
+        uses: gcampbell-msft/fixed-pending-release@0.0.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
