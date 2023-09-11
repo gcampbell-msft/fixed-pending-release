@@ -1,4 +1,4 @@
-# 
+# A GitHub Action that closes issues marked 'fixed-pending-release' upon a new release!
 
 This GitHub Action adds a comment to all pull requests that were included in a GitHub release. The comment includes a link to the release, along with a celebratory emoji :tada:
 
@@ -31,17 +31,13 @@ This action has the following inputs:
 
 - `token` (required): Your GitHub access token. You can use `${{ secrets.ACCESS_TOKEN }}` to access the value you set as actions repository secret.
 - `message` (optional): The message to be included in the comment. This is passed to the action as a lodash template string.
-  Available variables include: `releaseName`, `releaseTag`, `releaseUrl`, TODO: Remove the following items `pullRequestTitle`, `pullRequestUrl` and `pullRequestNumber`.
-
-## Outputs
-
-This action does not have any outputs.
+  Available variables include: `releaseName`, `releaseTag`, `releaseUrl`.
 
 ## Example
 
 Here's an example of what the comment looks like:
 
-:tada: This PR is included in [v1.0.0](https://github.com/owner/repo/releases/tag/v1.0.0) :tada:
+:tada: This issue has now been fixed! The fix is is included in [v1.0.0](https://github.com/owner/repo/releases/tag/v1.0.0) :tada:
 
 ## License
 

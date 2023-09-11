@@ -11,4 +11,3 @@ jobs:
         uses: gcampbell-msft/fixed-pending-release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          message: "TESTING"
