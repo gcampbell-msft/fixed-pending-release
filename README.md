@@ -16,7 +16,7 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Close issues marked 'fixed-pending-release' upon a release.
+      - name: Close issues marked as fixed upon a release.
         uses: gcampbell/fixed-pending-release/@x.x.x
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

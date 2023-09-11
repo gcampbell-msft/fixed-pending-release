@@ -1,5 +1,5 @@
-name: Close "fixed-pending-release" issues upon a release.
-description: Close issues marked "fixed-pending-release" upon a release.
+name: Close issues marked as fixed upon a release.
+description: Close issues marked as fixed upon a release.
 branding:
   icon: check-square
   color: orange

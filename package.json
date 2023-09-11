@@ -1,7 +1,7 @@
 {
   "name": "close-issues-on-release",
-  "version": "0.0.7",
-  "description": "Upon release, close issues marked 'fixed-pending-release'",
+  "version": "0.0.8",
+  "description": "GitHub Action that closes issues marked as fixed upon release",
   "main": "index.js",
   "scripts": {
     "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
