@@ -11,6 +11,10 @@ on:
             description: "The message to be included in a comment on the issues to be closed."
             required: false
             default: ":tada: This issue has now been fixed!"
+        isExternalRelease:
+            description: "Boolean indicating whether the release is external to GitHub. If it is, no GitHub release will be found."
+            required: false
+            default: "false"
 
 
 
