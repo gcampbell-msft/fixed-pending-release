@@ -7,7 +7,7 @@ This GitHub Action adds a comment to all pull requests that were included in a G
 To use this action, you will need to provide your [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `public_repo` permission.
 
 ```yaml
-name: Comment on Pull Requests included in Release
+name: Close issues marked 'fixed-pending-release' upon a release.
 on:
   release:
     types: [published]
@@ -16,7 +16,7 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Comment on Pull Requests
+      - name: Close issues marked 'fixed-pending-release' upon a release.
         uses: gcampbell/fixed-pending-release TODO
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
