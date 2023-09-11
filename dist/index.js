@@ -27013,11 +27013,13 @@ async function run() {
     const octokit = github.getOctokit(token);
     const { owner, repo } = github.context.repo;
 
+    const label = core.getInput("label", { required: false }) || "fixed-pending-release";
+
     const issuesPendingRelease = (await octokit.rest.issues.listForRepo({
         owner,
         repo,
         state: "open"
-    })).data.filter(i => i.labels.map(l => l.name).includes("fixed-pending-release"));
+    })).data.filter(i => i.labels.map(l => l.name).includes(label));
     
     // Get the message template from the user input
     const externalReleaseDefault = ":tada: This issue has now been fixed and is available in the latest release! :tada:";

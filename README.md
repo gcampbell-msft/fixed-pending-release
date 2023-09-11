@@ -1,4 +1,4 @@
-# A GitHub Action that closes issues marked 'fixed-pending-release' upon a new release
+# A GitHub Action that closes issues marked for closing upon a new release
 
 This GitHub Action adds a comment to all pull requests that were included in a GitHub release. The comment includes a link to the release, along with a celebratory emoji :tada:
 
@@ -7,7 +7,7 @@ This GitHub Action adds a comment to all pull requests that were included in a G
 To use this action, you will need to provide your [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `public_repo` permission.
 
 ```yaml
-name: Close issues marked 'fixed-pending-release' upon a release.
+name: Close issues marked for closing upon a release.
 on:
   release:
     types: [published]
@@ -20,6 +20,7 @@ jobs:
         uses: gcampbell/fixed-pending-release/@x.x.x
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          label: fixed-pending-release
           message: ":tada: This issue has now been fixed and is now available in the latest release! :tada:"
 ```
 
@@ -39,16 +40,11 @@ There are a couple of assumptions that this GitHub Actions makes.
 
 This action has the following inputs:
 
-- `token` (required): Your GitHub access token. You can use `${{ secrets.ACCESS_TOKEN }}` to access the value you set as actions repository secret.
+- `token` (optional): Your GitHub access token. You can use `${{ secrets.ACCESS_TOKEN }}` to access the value you set as actions repository secret. Default value will be `${{ github.token }}`.
+- `label` (option): The label that specifies issues that should be closed upon release.
 - `message` (optional): The message to be included in the comment. This is passed to the action as a lodash template string.
   Available variables, when `isExternalRelease` is `true` include: `releaseName`, `releaseTag`, `releaseUrl`.
 - `isExternalRelease` (optional): Boolean indicating whether the release is external to GitHub. If it is, no GitHub release will be used and thus the above variables aren't available.
-
-## Example
-
-Here's an example of what the comment looks like:
-
-:tada: This issue has now been fixed! The fix is is included in [vx.x.x](https://github.com/owner/repo/releases/tag/vx.x.x) :tada:
 
 ## License
 

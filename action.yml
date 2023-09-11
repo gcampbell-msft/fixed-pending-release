@@ -8,6 +8,10 @@ inputs:
     description: "Access token that can access and update issues."
     required: false
     default: '${{ github.token }}'
+  label:
+    description: "Label for bugs that should be closed upon a release"
+    required: false
+    default: "fixed-pending-release"
   message:
     description: "The message to be included in a comment on the issues to be closed."
     required: false

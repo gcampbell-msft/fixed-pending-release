@@ -7,10 +7,14 @@ on:
         token:
             description: "Access token that can access and update issues."
             required: true
+        label:
+            description: "Label for bugs that should be closed upon a release"
+            required: false
+            default: "fixed-pending-release"
         message:
             description: "The message to be included in a comment on the issues to be closed."
             required: false
-            default: ":tada: This issue has now been fixed!"
+            default: ":tada: This issue has now been fixed! :tada:"
         isExternalRelease:
             description: "Boolean indicating whether the release is external to GitHub. If it is, no GitHub release will be found."
             required: false
