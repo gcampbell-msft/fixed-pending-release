@@ -7,9 +7,11 @@ inputs:
   token:
     description: "Access token that can access and update issues."
     required: true
+    default: '${{ github.token }}'
   message:
     description: "The message to be included in a comment on the issues to be closed."
     required: false
+    default: ":tada: This issue has now been fixed! The fix is included in [${releaseTag}](${releaseUrl})! :tada:"
 runs:
   using: "node16"
   main: "dist/index.js"

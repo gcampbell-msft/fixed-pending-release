@@ -1,4 +1,4 @@
-# A GitHub Action that closes issues marked 'fixed-pending-release' upon a new release!
+# A GitHub Action that closes issues marked 'fixed-pending-release' upon a new release
 
 This GitHub Action adds a comment to all pull requests that were included in a GitHub release. The comment includes a link to the release, along with a celebratory emoji :tada:
 
