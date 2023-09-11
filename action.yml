@@ -6,7 +6,7 @@ branding:
 inputs:
   token:
     description: "Access token that can access and update issues."
-    required: true
+    required: false
     default: '${{ github.token }}'
   message:
     description: "The message to be included in a comment on the issues to be closed."

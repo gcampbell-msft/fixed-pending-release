@@ -2,6 +2,17 @@ name: Close issues marked 'fixed-pending-release' upon a release.
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+        token:
+            description: "Access token that can access and update issues."
+            required: true
+        message:
+            description: "The message to be included in a comment on the issues to be closed."
+            required: false
+            default: ":tada: This issue has now been fixed! The fix is included in [${releaseTag}](${releaseUrl})! :tada:"
+
+
 
 jobs:
   comment:
