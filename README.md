@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Close issues marked 'fixed-pending-release' upon a release.
-        uses: gcampbell/fixed-pending-release TODO
+        uses: gcampbell/fixed-pending-release/@x.x.x
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
-          message: ":tada: This PR is included in [${releaseTag}](${releaseUrl}) :tada:"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          message: ":tada: This issue has now been fixed and is now available in the latest release! :tada:"
 ```
 
 Note that this action is triggered by the `release.published` event, which occurs when a new release is published in your repository.
@@ -32,6 +32,7 @@ There are a couple of assumptions that this GitHub Actions makes.
 1. The only releases that you want to use for this action, to close issues based on, are official releases.
 1. You use `fixed-pending-release` to label issues that are fixed pending an official release.
 1. The most recent release that you published is the release that fixes all issues marked `fixed-pending-release`.
+    1. This assumption is not made when `isExternalRelease` is `"true"`
 
 ## Inputs
 
@@ -39,13 +40,14 @@ This action has the following inputs:
 
 - `token` (required): Your GitHub access token. You can use `${{ secrets.ACCESS_TOKEN }}` to access the value you set as actions repository secret.
 - `message` (optional): The message to be included in the comment. This is passed to the action as a lodash template string.
-  Available variables include: `releaseName`, `releaseTag`, `releaseUrl`.
+  Available variables, when `isExternalRelease` is `true` include: `releaseName`, `releaseTag`, `releaseUrl`.
+- `isExternalRelease` (optional): Boolean indicating whether the release is external to GitHub. If it is, no GitHub release will be used and thus the above variables aren't available.
 
 ## Example
 
 Here's an example of what the comment looks like:
 
-:tada: This issue has now been fixed! The fix is is included in [v1.0.0](https://github.com/owner/repo/releases/tag/v1.0.0) :tada:
+:tada: This issue has now been fixed! The fix is is included in [vx.x.x](https://github.com/owner/repo/releases/tag/vx.x.x) :tada:
 
 ## License
 

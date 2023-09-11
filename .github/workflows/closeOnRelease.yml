@@ -10,7 +10,7 @@ on:
         message:
             description: "The message to be included in a comment on the issues to be closed."
             required: false
-            default: ":tada: This issue has now been fixed! The fix is included in [${releaseTag}](${releaseUrl})! :tada:"
+            default: ":tada: This issue has now been fixed!"
 
 
 
@@ -19,6 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Close issues marked 'fixed-pending-release' upon a release.
-        uses: gcampbell-msft/fixed-pending-release@0.0.4
+        uses: gcampbell-msft/fixed-pending-release@0.0.5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
