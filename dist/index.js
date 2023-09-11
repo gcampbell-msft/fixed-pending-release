@@ -27012,7 +27012,15 @@ async function run() {
     let token = core.getInput("token");
     const octokit = github.getOctokit(token);
     const { owner, repo } = github.context.repo;
-    const { data: release } = await octokit.rest.repos.getRelease({ owner, repo, release_id: "latest" });
+
+    // TODO: Possibly modify to strictly consider official releases.
+    const { data: releases } = await octokit.rest.repos.listReleases({ owner, repo });
+    const release = releases.length > 0 ? releases[0] : undefined;
+
+    if (release === undefined) {
+        throw new Error("There is no release available");
+    }
+
     const issuesPendingRelease = (await octokit.rest.issues.listForRepo({
         owner,
         repo,

@@ -25,6 +25,14 @@ jobs:
 
 Note that this action is triggered by the `release.published` event, which occurs when a new release is published in your repository.
 
+## Assumptions
+
+There are a couple of assumptions that this GitHub Actions makes.
+
+1. The only releases that you want to use for this action, to close issues based on, are official releases.
+1. You use `fixed-pending-release` to label issues that are fixed pending an official release.
+1. The most recent release that you published is the release that fixes all issues marked `fixed-pending-release`.
+
 ## Inputs
 
 This action has the following inputs:
