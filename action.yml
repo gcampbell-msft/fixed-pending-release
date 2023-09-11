@@ -1,8 +1,8 @@
 name: Close "fixed-pending-release" issues upon a release.
 description: Close issues marked "fixed-pending-release" upon a release.
 branding:
-  icon: "align-justify"
-  color: "blue"
+  icon: check-square
+  color: orange
 inputs:
   token:
     description: "Access token that can access and update issues."
