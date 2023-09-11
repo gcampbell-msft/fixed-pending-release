@@ -18,6 +18,7 @@ async function run() {
     
     // Get the message template from the user input
     const externalReleaseDefault = ":tada: This issue has now been fixed and is available in the latest release! :tada:";
+    const nonExternalReleaseDefault = ":tada: This issue has now been fixed and is available in [${releaseTag}](${releaseUrl}) :tada:";
 
     const issuesClosed = [];
     let failedIssues = 0;
@@ -31,7 +32,6 @@ async function run() {
         await new Promise((resolve) => setTimeout(resolve, 250));
         
         let message = "";
-        const messageTemplate = providedMessage || externalReleaseDefault;
         const isExternalReleaseInput = core.getInput("isExternalRelease", { required: false });
         const isExternalRelease = isExternalReleaseInput === "false" ? false : isExternalReleaseInput === "true" ? true : undefined;
 
@@ -50,14 +50,14 @@ async function run() {
                 throw new Error("There is no release available");
             }
 
-            message = template(messageTemplate)({
+            message = template(providedMessage || nonExternalReleaseDefault)({
                 releaseName: release.name,
                 releaseTag: release.tag_name,
                 releaseUrl: release.html_url
             });
         } else {
             // in an external release, we simply pass the message through.
-            message = messageTemplate
+            message = providedMessage || externalReleaseDefault;
         }
 
         try {
