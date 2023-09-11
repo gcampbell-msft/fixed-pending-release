@@ -1,0 +1,15 @@
+name: Close issues marked "fixed-pending-release" upon a release.
+description: Close issues marked "fixed-pending-release" upon a release.
+branding:
+  icon: "align-justify"
+  color: "blue"
+inputs:
+  token:
+    description: "Personal access token with public_repo permission"
+    required: true
+  message:
+    description: "The message to be included in a comment on the issues to be closed"
+    required: false
+runs:
+  using: "node16"
+  main: "dist/index.js"
