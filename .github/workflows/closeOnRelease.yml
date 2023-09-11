@@ -27,3 +27,6 @@ jobs:
         uses: gcampbell-msft/fixed-pending-release@0.0.6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          label: ${{ inputs.label }}
+          message: ${{ inputs.message }}
+          isExternalRelease: ${{ inputs.isExternalRelease }}
