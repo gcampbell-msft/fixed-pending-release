@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Comment on Pull Requests
-        uses: gcampbell-msft/fixed-pending-release
+        uses: gcampbell-msft/fixed-pending-release@0.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
