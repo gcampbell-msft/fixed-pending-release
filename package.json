@@ -1,6 +1,6 @@
 {
   "name": "close-issues-on-release",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "GitHub Action that closes issues marked as fixed upon release",
   "main": "index.js",
   "scripts": {
