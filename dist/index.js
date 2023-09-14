@@ -27015,11 +27015,12 @@ async function run() {
 
     const label = core.getInput("label", { required: false }) || "fixed-pending-release";
 
-    const issuesPendingRelease = (await octokit.rest.issues.listForRepo({
+    const issuesPendingRelease = (await octokit.paginate(octokit.rest.issues.listForRepo, {
         owner,
         repo,
-        state: "open"
-    })).data.filter(i => i.labels.map(l => l.name).includes(label));
+        state: "open",
+        per_page: 100
+    })).filter(i => i.pull_request === undefined && i.labels.map(l => l.name).includes(label));
     
     // Get the message template from the user input
     const externalReleaseDefault = ":tada: This issue has now been fixed and is available in the latest release! :tada:";
