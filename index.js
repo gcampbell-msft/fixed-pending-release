@@ -34,7 +34,7 @@ async function run() {
         
         let message = "";
         const isExternalReleaseInput = core.getInput("isExternalRelease", { required: false });
-        const isExternalRelease = isExternalReleaseInput === "false" ? false : isExternalReleaseInput === "true" ? true : "false";
+        const isExternalRelease = isExternalReleaseInput === "false" ? false : isExternalReleaseInput === "true" ? true : false;
 
         if (isExternalRelease === undefined) {
             throw new Error("Invalid input for `isExternalRelease`");
