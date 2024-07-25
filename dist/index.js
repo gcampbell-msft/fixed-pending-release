@@ -27084,7 +27084,7 @@ async function run() {
             });
 
             // Remove the label from the issue.
-            const removeLabel = core.getInput("removeLabel", { required: false }) || false;
+            const removeLabel = !!core.getInput("removeLabel", { required: false }) || false;
             if (removeLabel) {
                 await octokit.rest.issues.removeLabel({
                     owner,
