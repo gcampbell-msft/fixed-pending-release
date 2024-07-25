@@ -1,6 +1,6 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
-const { template } = require("lodash");
+const { template, remove } = require("lodash");
 
 async function run() {
   try {
@@ -77,6 +77,18 @@ async function run() {
                 issue_number: number,
                 state: "closed"
             });
+
+            // Remove the label from the issue.
+            const removeLabel = core.getInput("removeLabel", { required: false }) || false;
+            if (removeLabel) {
+                await octokit.rest.issues.removeLabel({
+                    owner,
+                    repo,
+                    issue_number: number,
+                    name: label
+                });
+            }
+
         } catch (error) {
             console.error(`Failed to comment on and/or close issue #${number}`, error);
             failedIssues++;
