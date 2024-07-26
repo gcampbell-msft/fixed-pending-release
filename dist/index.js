@@ -27005,7 +27005,7 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
-const { template } = __nccwpck_require__(250);
+const { template, remove } = __nccwpck_require__(250);
 
 async function run() {
   try {
@@ -27082,6 +27082,18 @@ async function run() {
                 issue_number: number,
                 state: "closed"
             });
+
+            // Remove the label from the issue.
+            const removeLabel = !!core.getInput("removeLabel", { required: false }) || false;
+            if (removeLabel) {
+                await octokit.rest.issues.removeLabel({
+                    owner,
+                    repo,
+                    issue_number: number,
+                    name: label
+                });
+            }
+
         } catch (error) {
             console.error(`Failed to comment on and/or close issue #${number}`, error);
             failedIssues++;

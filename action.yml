@@ -12,6 +12,10 @@ inputs:
     description: "Label for bugs that should be closed upon a release"
     required: false
     default: "fixed-pending-release"
+  removeLabel:
+    description: "Boolean indicating whether the label should be removed from the issues."
+    required: false
+    default: "false"
   message:
     description: "The message to be included in a comment on the issues to be closed."
     required: false
