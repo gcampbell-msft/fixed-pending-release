@@ -46,8 +46,7 @@ async function run() {
     const issuesIterator = octokit.paginate(octokit.rest.issues.listForRepo, {
         owner,
         repo,
-        state: "open",
-        per_page: 100
+        labels: label
     });
     
     const issuesClosed = [];
