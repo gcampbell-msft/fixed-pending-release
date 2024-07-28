@@ -16,6 +16,10 @@ inputs:
     description: "Boolean indicating whether the label should be removed from the issues."
     required: false
     default: "false"
+  applyToAll:
+    description: "Boolean indicating whether the action should apply to all issues with the label, or only open issues."
+    required: false
+    default: "false"
   message:
     description: "The message to be included in a comment on the issues to be closed."
     required: false
