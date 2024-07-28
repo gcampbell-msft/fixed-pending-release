@@ -27017,6 +27017,7 @@ async function run() {
     const label = core.getInput("label", { required: false }) || "fixed-pending-release";
     const providedMessage = core.getInput("message", { required: false });
     const isExternalRelease = !!core.getInput("isExternalRelease", { required: false }) || false;
+    const removeLabel = !!core.getInput("removeLabel", { required: false }) || false;
 
     // Prepare message release message
     const externalReleaseDefault = ":tada: This issue has now been fixed and is available in the latest release! :tada:";
@@ -27050,8 +27051,7 @@ async function run() {
     const issuesIterator = octokit.paginate(octokit.rest.issues.listForRepo, {
         owner,
         repo,
-        state: "open",
-        per_page: 100
+        labels: label
     });
     
     const issuesClosed = [];
@@ -27083,7 +27083,6 @@ async function run() {
                 });
     
                 // Remove the label from the issue.
-                const removeLabel = !!core.getInput("removeLabel", { required: false }) || false;
                 if (removeLabel) {
                     await octokit.rest.issues.removeLabel({
                         owner,
