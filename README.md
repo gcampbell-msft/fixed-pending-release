@@ -21,7 +21,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           label: fixed-pending-release
-          message: ":tada: This issue has now been fixed and is now available in the latest release! :tada:"
+          message: ":tada: This issue has now been fixed and is available in [${releaseTag}](${releaseUrl}) :tada:";
 ```
 
 Note that this action is triggered by the `release.published` event, which occurs when a new release is published in your repository.
