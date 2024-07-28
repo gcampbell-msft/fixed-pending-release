@@ -27016,9 +27016,9 @@ async function run() {
     // Get workflow inputs
     const label = core.getInput("label", { required: false }) || "fixed-pending-release";
     const providedMessage = core.getInput("message", { required: false });
-    const isExternalRelease = !!core.getInput("isExternalRelease", { required: false }) || false;
-    const applyToAll = !!core.getInput("applyToAll", { required: false }) || false;
-    const removeLabel = !!core.getInput("removeLabel", { required: false }) || false;
+    const isExternalRelease = core.getInput("isExternalRelease", { required: false }).toLowerCase().trim() === 'true';
+    const applyToAll = core.getInput("applyToAll", { required: false }).toLowerCase().trim() === 'true';
+    const removeLabel = core.getInput("removeLabel", { required: false }).toLowerCase().trim() === 'true';
 
     // Prepare message release message
     const externalReleaseDefault = ":tada: This issue has now been fixed and is available in the latest release! :tada:";
