@@ -27047,58 +27047,59 @@ async function run() {
     }
 
     // Get list of issues
-    const issuesPendingRelease = (await octokit.paginate(octokit.rest.issues.listForRepo, {
+    const issuesIterator = octokit.paginate(octokit.rest.issues.listForRepo, {
         owner,
         repo,
         state: "open",
         per_page: 100
-    })).filter(i => i.pull_request === undefined && i.labels.map(l => l.name).includes(label));
+    });
     
     const issuesClosed = [];
     let failedIssues = 0;
 
     // Iterate over issues to comment and close them
-    for (const issue of issuesPendingRelease) {
-        const number = issue.number;
-
-        // slow down how often we send requests if there are lots of issues.
-        await new Promise((resolve) => setTimeout(resolve, 250));
-
-        try {
-            // Comment on the issue that we will close.
-            await octokit.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number: number,
-                body: message
-            });
-
-            // Close the issue.
-            await octokit.rest.issues.update({
-                owner,
-                repo,
-                issue_number: number,
-                state: "closed"
-            });
-
-            // Remove the label from the issue.
-            const removeLabel = !!core.getInput("removeLabel", { required: false }) || false;
-            if (removeLabel) {
-                await octokit.rest.issues.removeLabel({
+    for await (const { data: issues } of issuesIterator) {
+        for (const issue of issues) {
+            const number = issue.number;
+    
+            // slow down how often we send requests if there are lots of issues.
+            await new Promise((resolve) => setTimeout(resolve, 250));
+    
+            try {
+                // Comment on the issue that we will close.
+                await octokit.rest.issues.createComment({
                     owner,
                     repo,
                     issue_number: number,
-                    name: label
+                    body: message
                 });
+    
+                // Close the issue.
+                await octokit.rest.issues.update({
+                    owner,
+                    repo,
+                    issue_number: number,
+                    state: "closed"
+                });
+    
+                // Remove the label from the issue.
+                const removeLabel = !!core.getInput("removeLabel", { required: false }) || false;
+                if (removeLabel) {
+                    await octokit.rest.issues.removeLabel({
+                        owner,
+                        repo,
+                        issue_number: number,
+                        name: label
+                    });
+                }
+            } catch (error) {
+                console.error(`Failed to comment on and/or close issue #${number}`, error);
+                failedIssues++;
             }
-
-        } catch (error) {
-            console.error(`Failed to comment on and/or close issue #${number}`, error);
-            failedIssues++;
+    
+            console.log(`Closed #${number}`);
+            issuesClosed.push(issue);
         }
-
-        console.log(`Closed #${number}`);
-        issuesClosed.push(issue);
     }
 
     if (failedIssues > 0) {
