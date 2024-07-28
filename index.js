@@ -12,6 +12,7 @@ async function run() {
     const label = core.getInput("label", { required: false }) || "fixed-pending-release";
     const providedMessage = core.getInput("message", { required: false });
     const isExternalRelease = !!core.getInput("isExternalRelease", { required: false }) || false;
+    const applyToAll = !!core.getInput("applyToAll", { required: false }) || false;
     const removeLabel = !!core.getInput("removeLabel", { required: false }) || false;
 
     // Prepare message release message
@@ -46,6 +47,7 @@ async function run() {
     const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
         owner,
         repo,
+        state: applyToAll ? "all" : "open",
         labels: label,
         per_page: 100
     });

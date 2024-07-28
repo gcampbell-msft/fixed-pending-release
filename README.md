@@ -41,6 +41,7 @@ This action has the following inputs:
 - `token` (optional): Your GitHub access token. You can use `${{ secrets.ACCESS_TOKEN }}` to access the value you set as actions repository secret. Default value will be `${{ github.token }}`.
 - `label` (option): The label that specifies issues that should be closed upon release.
 - `removeLabel` (optional): Boolean, whether to remove the label after closing the issue.
+- `applyToAll` (optional): Boolean, whether to apply to all issues. If false, only check open issues. Default value is false.
 - `message` (optional): The message to be included in the comment. This is passed to the action as a lodash template string.
   Available variables, when `isExternalRelease` is `true`, include: `releaseName`, `releaseTag`, `releaseUrl`.
 - `isExternalRelease` (optional): Boolean indicating whether the release is external to GitHub. If it is, no GitHub release will be used and thus the above variables aren't available.
