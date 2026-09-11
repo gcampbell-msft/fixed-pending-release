@@ -1,11 +1,19 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
-const { template, remove } = require("lodash");
+import * as core from "@actions/core";
+import * as github from "@actions/github";
+import lodash from "lodash";
+
+const { template } = lodash;
 
 async function run() {
   try {
     let token = core.getInput("token");
     const octokit = github.getOctokit(token);
+    // GitHub now requires callers to opt into a versioned REST API. Octokit's
+    // current constructor does not expose this as an option, so apply it to
+    // every REST request made by this action.
+    octokit.hook.before("request", (options) => {
+      options.headers["x-github-api-version"] = "2022-11-28";
+    });
     const { owner, repo } = github.context.repo;
 
     // Get workflow inputs
