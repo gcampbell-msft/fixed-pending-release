@@ -1,11 +1,18 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
-const { template, remove } = require("lodash");
+import * as core from "@actions/core";
+import * as github from "@actions/github";
+import lodash from "lodash";
+
+const { template } = lodash;
 
 async function run() {
   try {
     let token = core.getInput("token");
     const octokit = github.getOctokit(token);
+    // Specify the supported REST API version on every request.
+    // https://docs.github.com/en/rest/about-the-rest-api/api-versions?apiVersion=2026-03-10
+    const apiVersion = {
+      headers: { "X-GitHub-Api-Version": "2026-03-10" }
+    };
     const { owner, repo } = github.context.repo;
 
     // Get workflow inputs
@@ -26,7 +33,11 @@ async function run() {
         // template with the most recent release.
 
         // TODO: Possibly modify to strictly consider official releases.
-        const { data: releases } = await octokit.rest.repos.listReleases({ owner, repo });
+        const { data: releases } = await octokit.rest.repos.listReleases({
+            owner,
+            repo,
+            ...apiVersion
+        });
         const release = releases.length > 0 ? releases[0] : undefined;
 
         if (release === undefined) {
@@ -49,7 +60,8 @@ async function run() {
         repo,
         state: applyToAll ? "all" : "open",
         labels: label,
-        per_page: 100
+        per_page: 100,
+        ...apiVersion
     });
 
     const issuesClosed = [];
@@ -68,7 +80,8 @@ async function run() {
                 owner,
                 repo,
                 issue_number: number,
-                body: message
+                body: message,
+                ...apiVersion
             });
 
             // Close the issue.
@@ -76,16 +89,18 @@ async function run() {
                 owner,
                 repo,
                 issue_number: number,
-                state: "closed"
+                state: "closed",
+                ...apiVersion
             });
 
             // Remove the label from the issue.
             if (removeLabel) {
                 await octokit.rest.issues.removeLabel({
                     owner,
-                    repo,
-                    issue_number: number,
-                    name: label
+                repo,
+                issue_number: number,
+                name: label,
+                ...apiVersion
                 });
             }
         } catch (error) {
